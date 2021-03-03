@@ -11,6 +11,8 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({isOpen: false, link: ' '});
+
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
@@ -23,10 +25,15 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
+  const handleCardClick = ({link, name, alt}) => {
+    setSelectedCard({isOpen:true, link: link, name: name, alt: alt});
+  }
+
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -34,31 +41,32 @@ function App() {
       <div className="page">
       <Header />
       <Main
-        onEditProfile = {handleEditProfileClick}
-        onAddPlace = {handleAddPlaceClick}
-        onEditAvatar = {handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
     </div>
     <PopupWithForm
       name="edit"
       isOpen={isEditProfilePopupOpen}
-      popupTitle = "Редактировать профиль"
-      onClose ={closeAllPopups}
+      popupTitle="Редактировать профиль"
+      onClose={closeAllPopups}
     />
     <PopupWithForm
       name="add"
       isOpen={isAddPlacePopupOpen}
-      popupTitle = "Добавить место"
-      onClose ={closeAllPopups}
+      popupTitle="Добавить место"
+      onClose={closeAllPopups}
     />
     <PopupWithForm
-      name = "avatar"
-      isOpen = {isEditAvatarPopupOpen}
-      popupTitle = "Обновить аватар"
-      onClose ={closeAllPopups}
+      name="avatar"
+      isOpen={isEditAvatarPopupOpen}
+      popupTitle="Обновить аватар"
+      onClose={closeAllPopups}
     />
-    <ImagePopup />
+    <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 
       <div className="popup popup_delete">
         <div className="popup__container">

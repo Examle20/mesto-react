@@ -1,8 +1,7 @@
 function PopupWithForm(props) {
-  console.log(props.isOpen, 'это isOpen')
-  const isOpen = props.isOpen ? 'popup_visible' : '';
+  const classNameOpen = props.isOpen ? 'popup_visible' : '';
   return(
-    <div className={`popup popup_validation popup_${props.name} ${isOpen}`}>
+    <div className={`popup popup_validation popup_${props.name} ${classNameOpen}`}>
       <div className="popup__container">
         <button type="button" className="popup__button-close popup__button-close_edit" aria-label="Закрыть" onClick={props.onClose}></button>
         <form action="pages/index.js" className="popup__form" name={`form_${props.name}`} noValidate>
