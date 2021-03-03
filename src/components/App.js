@@ -11,7 +11,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({isOpen: false, link: ' '});
+  const [selectedCard, setSelectedCard] = React.useState(false);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -27,6 +27,19 @@ function App() {
 
   const handleCardClick = ({link, name, alt}) => {
     setSelectedCard({isOpen:true, link: link, name: name, alt: alt});
+  }
+
+  const handleEscClose = (evt) => {
+    if(evt.key === 'Escape'){
+      closeAllPopups();
+    }
+  }
+
+  const handlePressingMouse = (evt) => {
+    if (evt.target.classList.contains('popup')){
+      closeAllPopups();
+      console.log('hi')
+    }
   }
 
   const closeAllPopups = () => {
@@ -53,20 +66,31 @@ function App() {
       isOpen={isEditProfilePopupOpen}
       popupTitle="Редактировать профиль"
       onClose={closeAllPopups}
+      onEscClose={handleEscClose}
+      onOverlayClose={handlePressingMouse}
     />
     <PopupWithForm
       name="add"
       isOpen={isAddPlacePopupOpen}
       popupTitle="Добавить место"
       onClose={closeAllPopups}
+      onEscClose={handleEscClose}
+      onOverlayClose={handlePressingMouse}
     />
     <PopupWithForm
       name="avatar"
       isOpen={isEditAvatarPopupOpen}
       popupTitle="Обновить аватар"
       onClose={closeAllPopups}
+      onEscClose={handleEscClose}
+      onOverlayClose={handlePressingMouse}
     />
-    <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+    <ImagePopup
+      card={selectedCard}
+      onClose={closeAllPopups}
+      onEscClose={handleEscClose}
+      onOverlayClose={handlePressingMouse}
+    />
 
       <div className="popup popup_delete">
         <div className="popup__container">
