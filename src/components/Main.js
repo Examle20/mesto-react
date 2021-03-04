@@ -46,7 +46,14 @@ function Main(props) {
         <ul className="elements__list">
           {cards.map((item) =>(
             <li className="elements__item" key={item._id}>
-              <Card _id={item._id} link={item.link} name={item.name} likes={item.likes} onCardClick={props.onCardClick}/>
+              <Card
+                _id={item._id}
+                link={item.link}
+                name={item.name}
+                likes={item.likes}
+                onCardClick={props.onCardClick}
+                onBasketClick={props.onBasketClick}
+              />
             </li>
           ))}
         </ul>

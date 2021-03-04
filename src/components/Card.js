@@ -11,7 +11,7 @@ function Card(props) {
         className="elements__image"
         onClick={handleCardClick}
       />
-      <button type="button" className="elements__basket"></button>
+      <button type="button" className="elements__basket" onClick={props.onBasketClick}></button>
       <div className="elements__group">
         <h2 className="elements__title">{props.name}</h2>
         <div className="elements__group-like">

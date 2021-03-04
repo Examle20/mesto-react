@@ -3,14 +3,19 @@ import '../App.css';
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import EditProfilePopup from "./EditProfilePopup";
+import AddPlacePopup from "./AddPlacePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import CardDeletePopup from "./CardDeletePopup";
 
 function App() {
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = React.useState(false);
+
   const [selectedCard, setSelectedCard] = React.useState(false);
 
   const handleEditAvatarClick = () => {
@@ -27,6 +32,10 @@ function App() {
 
   const handleCardClick = ({link, name, alt}) => {
     setSelectedCard({isOpen:true, link: link, name: name, alt: alt});
+  }
+
+  const handleBasketClick = () => {
+    setIsCardDeletePopupOpen(!isCardDeletePopupOpen);
   }
 
   const handleEscClose = (evt) => {
@@ -47,6 +56,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(false);
+    setIsCardDeletePopupOpen(false);
   }
 
   return (
@@ -58,32 +68,38 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
+        onBasketClick={handleBasketClick}
       />
       <Footer />
     </div>
-    <PopupWithForm
-      name="edit"
+
+    <EditProfilePopup
       isOpen={isEditProfilePopupOpen}
-      popupTitle="Редактировать профиль"
       onClose={closeAllPopups}
       onEscClose={handleEscClose}
       onOverlayClose={handlePressingMouse}
+      buttonTitle="Сохранить"
     />
-    <PopupWithForm
-      name="add"
+    <AddPlacePopup
       isOpen={isAddPlacePopupOpen}
-      popupTitle="Добавить место"
       onClose={closeAllPopups}
       onEscClose={handleEscClose}
       onOverlayClose={handlePressingMouse}
+      buttonTitle="Создать"
     />
-    <PopupWithForm
-      name="avatar"
+    <EditAvatarPopup
       isOpen={isEditAvatarPopupOpen}
-      popupTitle="Обновить аватар"
       onClose={closeAllPopups}
       onEscClose={handleEscClose}
       onOverlayClose={handlePressingMouse}
+      buttonTitle="Сохранить"
+    />
+    <CardDeletePopup
+      isOpen={isCardDeletePopupOpen}
+      onClose={closeAllPopups}
+      onEscClose={handleEscClose}
+      onOverlayClose={handlePressingMouse}
+      buttonTitle="Да"
     />
     <ImagePopup
       card={selectedCard}
@@ -100,35 +116,6 @@ function App() {
         </div>
       </div>
 
-      <div className="popup popup_avatar">
-        <div className="popup__container">
-          <h2 className="popup__title popup__title_place">Обновить аватар</h2>
-          <form action="" className="popup__form" noValidate>
-            <label className="popup__form-field">
-              <input id="avatar-input" type="url" className="popup__form-input popup__form-input_avatar-url"
-                     name="avatar" placeholder="Ссылка на картинку" required autoComplete="off" />
-                <span className="avatar-input-error popup__form-error"></span>
-            </label>
-            <button type="submit" className="popup__button-save" aria-label="Сохранить" disabled>Сохранить</button>
-          </form>
-
-          <button type="button" className="popup__button-close"></button>
-        </div>
-      </div>
-      <template className="elements__template">
-        <li className="elements__item">
-          <img src="" alt="Что-то с ссылкой на изображение"
-               className="elements__image" />
-            <button type="button" className="elements__basket"></button>
-            <div className="elements__group">
-              <h2 className="elements__title"></h2>
-              <div className="elements__group-like">
-                <button type="button" className="elements__like" aria-label="Нравится"></button>
-                <p className="elements__like-count"></p>
-              </div>
-            </div>
-        </li>
-      </template>
     </div>
   );
 }
