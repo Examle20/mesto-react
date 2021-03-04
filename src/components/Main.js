@@ -26,7 +26,8 @@ function Main(props) {
       <section className="profile">
         <div className="profile__user">
           <div className="profile__photo-group" onClick={props.onEditAvatar}>
-            <img src={userAvatar}
+            <img
+              src={userAvatar}
               alt="Изображение профиля"
               className="profile__photo"
             />

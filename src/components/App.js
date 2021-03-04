@@ -39,18 +39,21 @@ function App() {
   }
 
   const handleEscClose = (evt) => {
-    if(evt.key === 'Escape'){
-      closeAllPopups();
-    }
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+        console.log('hi')
+      }
+
   }
 
   const handlePressingMouse = (evt) => {
-    if (evt.target.classList.contains('popup')){
-      closeAllPopups();
-      console.log('hi')
-    }
+      if (evt.target.classList.contains('popup')) {
+        closeAllPopups();
+        console.log('hi')
+      }
   }
 
+  //Параметры передаются для плавного закрытия попапа с изображением
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -62,60 +65,51 @@ function App() {
   return (
     <div className="App">
       <div className="page">
-      <Header />
-      <Main
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}
-        onBasketClick={handleBasketClick}
-      />
-      <Footer />
-    </div>
-
-    <EditProfilePopup
-      isOpen={isEditProfilePopupOpen}
-      onClose={closeAllPopups}
-      onEscClose={handleEscClose}
-      onOverlayClose={handlePressingMouse}
-      buttonTitle="Сохранить"
-    />
-    <AddPlacePopup
-      isOpen={isAddPlacePopupOpen}
-      onClose={closeAllPopups}
-      onEscClose={handleEscClose}
-      onOverlayClose={handlePressingMouse}
-      buttonTitle="Создать"
-    />
-    <EditAvatarPopup
-      isOpen={isEditAvatarPopupOpen}
-      onClose={closeAllPopups}
-      onEscClose={handleEscClose}
-      onOverlayClose={handlePressingMouse}
-      buttonTitle="Сохранить"
-    />
-    <CardDeletePopup
-      isOpen={isCardDeletePopupOpen}
-      onClose={closeAllPopups}
-      onEscClose={handleEscClose}
-      onOverlayClose={handlePressingMouse}
-      buttonTitle="Да"
-    />
-    <ImagePopup
-      card={selectedCard}
-      onClose={closeAllPopups}
-      onEscClose={handleEscClose}
-      onOverlayClose={handlePressingMouse}
-    />
-
-      <div className="popup popup_delete">
-        <div className="popup__container">
-          <p className="popup__delete-text">Вы уверены?</p>
-          <button className="popup__button-save popup__button-save_verification">Да</button>
-          <button type="button" className="popup__button-close"></button>
-        </div>
+        <Header />
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+          onBasketClick={handleBasketClick}
+        />
+        <Footer />
       </div>
 
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onEscClose={handleEscClose}
+        onOverlayClose={handlePressingMouse}
+        buttonTitle="Сохранить"
+      />
+      <AddPlacePopup
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onEscClose={handleEscClose}
+        onOverlayClose={handlePressingMouse}
+        buttonTitle="Создать"
+      />
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onEscClose={handleEscClose}
+        onOverlayClose={handlePressingMouse}
+        buttonTitle="Сохранить"
+      />
+      <CardDeletePopup
+        isOpen={isCardDeletePopupOpen}
+        onClose={closeAllPopups}
+        onEscClose={handleEscClose}
+        onOverlayClose={handlePressingMouse}
+        buttonTitle="Да"
+      />
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}
+        onEscClose={handleEscClose}
+        onOverlayClose={handlePressingMouse}
+      />
     </div>
   );
 }

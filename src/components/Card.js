@@ -6,8 +6,8 @@ function Card(props) {
   }
   return(
     <>
-      <img src={props.link}
-        alt="Что-то с ссылкой на изображение"
+      <div style={{ backgroundImage: `url(${props.link})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize:"cover" }}
+           alt="Что-то с ссылкой на изображение"
         className="elements__image"
         onClick={handleCardClick}
       />
