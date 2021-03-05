@@ -2,12 +2,7 @@ import React from "react";
 
 function ImagePopup(props) {
   const classNameOpen = props.card.isOpen ? 'popup_visible' : '';
-  let cardLink = props.card.link
-  const handleClose = () => {
-    props.onClose(props.card.link, props.card.name)
-  }
-
-  React.useEffect(() => {
+    React.useEffect(() => {
     if (props.card.isOpen) document.addEventListener('keydown', props.onEscClose);
 
     return () => {
@@ -22,7 +17,7 @@ function ImagePopup(props) {
           type="button"
           className="popup__button-close popup__button-close_image"
           aria-label="Закрыть"
-          onClick={handleClose}
+          onClick={props.onClose}
         >
         </button>
         <img src={props.card.link}   alt="Выбранное изображение" className="popup__image"  />

@@ -41,7 +41,6 @@ function App() {
   const handleEscClose = (evt) => {
       if (evt.key === 'Escape') {
         closeAllPopups();
-        console.log('hi')
       }
 
   }
@@ -49,7 +48,6 @@ function App() {
   const handlePressingMouse = (evt) => {
       if (evt.target.classList.contains('popup')) {
         closeAllPopups();
-        console.log('hi')
       }
   }
 
