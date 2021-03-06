@@ -17,7 +17,11 @@ export class Api {
       }
     )
       .then(res => {
-        if (res.status) return res.json();
+        if (!res.ok){
+          return Promise.reject(res.status)
+        } else{
+          return res.json();
+        }
       })
   }
 
@@ -31,7 +35,11 @@ export class Api {
       }
     )
       .then(res => {
-        if (res.status) return res.json();
+        if (!res.ok){
+          return Promise.reject(res.status)
+        } else{
+            return res.json();
+        }
       })
   }
 
@@ -48,7 +56,11 @@ export class Api {
       })
     })
       .then(res => {
-        if (res.status) return res.json();
+        if (!res.ok){
+          return Promise.reject(res.status)
+        } else{
+          return res.json();
+        }
       })
   }
 
@@ -65,7 +77,11 @@ export class Api {
       })
     })
       .then(res => {
-        if (res.status) return res.json();
+        if (!res.ok){
+          return Promise.reject(res.status)
+        } else{
+          return res.json();
+        }
       })
   }
 
@@ -78,7 +94,11 @@ export class Api {
       }
     })
       .then(res => {
-        if (res.status) return res.json();
+        if (!res.ok){
+          return Promise.reject(res.status)
+        } else{
+          return res.json();
+        }
       })
   }
 
@@ -91,7 +111,11 @@ export class Api {
       }
     })
       .then(res => {
-        if (res.status) return res.json();
+        if (!res.ok){
+          return Promise.reject(res.status)
+        } else{
+          return res.json();
+        }
       })
   }
 
@@ -104,7 +128,11 @@ export class Api {
       },
     })
       .then(res => {
-        if (res.status) return res;
+        if (!res.ok){
+          return Promise.reject(res.status)
+        } else{
+          return res.json();
+        }
       })
   }
 
@@ -120,7 +148,11 @@ export class Api {
       })
     })
       .then(res => {
-        if (res.ok) return res.json();
+        if (!res.ok){
+          return Promise.reject(res.status)
+        } else{
+          return res.json();
+        }
       })
   }
 }

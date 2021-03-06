@@ -13,13 +13,15 @@ function Main(props) {
         setUserName(res.name);
         setUserDescription(res.about);
         setUserAvatar(res.avatar);
-      })
+      },)
+      .catch(err => console.log(err))
 
     api.getInitialCards()
       .then((res) => {
         setCards(res);
       })
-  })
+      .catch(err => console.log(err))
+  },[])
 
   return(
     <main>
