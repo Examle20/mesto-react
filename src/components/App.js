@@ -8,6 +8,8 @@ import EditProfilePopup from "./EditProfilePopup";
 import AddPlacePopup from "./AddPlacePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import CardDeletePopup from "./CardDeletePopup";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import api from "../utils/Api";
 
 function App() {
 
@@ -16,7 +18,19 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = React.useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({link:'', name: ''});
+  const [isPopupWithImageOpen, setIsPopupWithImageOpen] = React.useState(false)
+  const [currentUser, setCurrentUser] = React.useState('');
+
+  React.useEffect(() =>{
+    api.getUser()
+      .then((res) => {
+        setCurrentUser(res);
+      },)
+      .catch(err => console.log(err))
+
+  },[])
+
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -30,8 +44,10 @@ function App() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
 
-  const handleCardClick = ({link, name, alt}) => {
-    setSelectedCard({isOpen:true, link: link, name: name, alt: alt});
+  const handleCardClick = (card) => {
+    console.log(card)
+    setSelectedCard(card);
+    setIsPopupWithImageOpen(true)
   }
 
   const handleBasketClick = () => {
@@ -56,59 +72,64 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(false);
     setIsCardDeletePopupOpen(false);
+    setIsPopupWithImageOpen(false);
   }
 
   return (
-    <div className="App">
-      <div className="page">
-        <Header />
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onBasketClick={handleBasketClick}
-        />
-        <Footer />
-      </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App">
+        <div className="page">
+          <Header />
+          <Main
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onBasketClick={handleBasketClick}
+          />
+          <Footer />
+        </div>
 
-      <EditProfilePopup
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-        onEscClose={handleEscClose}
-        onOverlayClose={handlePressingMouse}
-        buttonTitle="Сохранить"
-      />
-      <AddPlacePopup
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-        onEscClose={handleEscClose}
-        onOverlayClose={handlePressingMouse}
-        buttonTitle="Создать"
-      />
-      <EditAvatarPopup
-        isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-        onEscClose={handleEscClose}
-        onOverlayClose={handlePressingMouse}
-        buttonTitle="Сохранить"
-      />
-      <CardDeletePopup
-        isOpen={isCardDeletePopupOpen}
-        onClose={closeAllPopups}
-        onEscClose={handleEscClose}
-        onOverlayClose={handlePressingMouse}
-        buttonTitle="Да"
-      />
-      <ImagePopup
-        card={selectedCard}
-        onClose={closeAllPopups}
-        onEscClose={handleEscClose}
-        onOverlayClose={handlePressingMouse}
-      />
-    </div>
+        <EditProfilePopup
+          name='edit'
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          onOverlayClose={handlePressingMouse}
+          buttonTitle="Сохранить"
+        />
+        <AddPlacePopup
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          onOverlayClose={handlePressingMouse}
+          buttonTitle="Создать"
+        />
+        <EditAvatarPopup
+          name='avatar'
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          onOverlayClose={handlePressingMouse}
+          buttonTitle="Сохранить"
+        />
+        <CardDeletePopup
+          isOpen={isCardDeletePopupOpen}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          onOverlayClose={handlePressingMouse}
+          buttonTitle="Да"
+        />
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          isOpen={isPopupWithImageOpen}
+          onOverlayClose={handlePressingMouse}
+        />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

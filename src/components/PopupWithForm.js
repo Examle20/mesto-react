@@ -1,7 +1,6 @@
 import React from "react";
 function PopupWithForm(props) {
   const classNameOpen = props.isOpen ? 'popup_visible' : '';
-
   React.useEffect(() => {
     if (props.isOpen) document.addEventListener('keydown', props.onEscClose);
     return ()=> {

@@ -1,14 +1,15 @@
 import React from "react";
 
 function ImagePopup(props) {
-  const classNameOpen = props.card.isOpen ? 'popup_visible' : '';
+  const {link, name} =props.card
+  const classNameOpen = props.isOpen ? 'popup_visible' : '';
     React.useEffect(() => {
-    if (props.card.isOpen) document.addEventListener('keydown', props.onEscClose);
+    if (props.card) document.addEventListener('keydown', props.onEscClose);
 
     return () => {
       document.removeEventListener('keydown', props.onEscClose);
     }
-  },[props.card.isOpen])
+  },[props.isOpen])
 
   return(
     <div className={`popup popup_image ${classNameOpen}`} onClick={props.onOverlayClose}>
@@ -20,7 +21,7 @@ function ImagePopup(props) {
           onClick={props.onClose}
         >
         </button>
-        <img src={props.card.link}   alt="Выбранное изображение" className="popup__image"  />
+        <img src={link}   alt="Выбранное изображение" className="popup__image"  />
         <figcaption className="popup__image-title">{props.card.name}</figcaption>
       </figure>
     </div>

@@ -3,6 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 function EditAvatarPopup(props) {
   return(
     <PopupWithForm
+      name='avatar'
       isOpen={props.isOpen}
       onClose={props.onClose}
       onEscClose={props.onEscClose}

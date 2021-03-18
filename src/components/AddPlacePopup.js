@@ -3,6 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 function AddPlacePopup(props) {
   return(
     <PopupWithForm
+      name='add'
       isOpen={props.isOpen}
       onClose={props.onClose}
       onEscClose={props.onEscClose}

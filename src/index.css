@@ -30,6 +30,7 @@
 @import url(./blocks/elements/__like/_active/elements_like_active.css);
 @import url(./blocks/elements/__group-like/elements__group-like.css);
 @import url(./blocks/elements/__like-count/elements__like-count.css);
+@import url(./blocks/elements/__basket/_hidden/elements__basket_hidden.css);
 /*Блок footer*/
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);

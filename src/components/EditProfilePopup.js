@@ -3,6 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 function EditProfilePopup(props) {
   return(
     <PopupWithForm
+      name='edit'
       isOpen={props.isOpen}
       onClose={props.onClose}
       onEscClose={props.onEscClose}
