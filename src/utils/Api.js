@@ -155,7 +155,16 @@ export class Api {
         }
       })
   }
+  changeLikeCardStatus(_id, isLiked) {
+    if(isLiked) {
+      return  this.removeLike(_id);
+    }else {
+      return this.putLike(_id);
+    }
+  }
 }
+
+
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-20',
