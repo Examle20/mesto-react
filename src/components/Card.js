@@ -5,7 +5,6 @@ function Card(props) {
 
   const currentUser = React.useContext(CurrentUserContext)
   const card = props.card;
-  console.log(card)
   const isOwn = card.owner._id === currentUser._id;
   const basketButtonClassName = (
     `elements__basket ${isOwn ? '': 'elements__basket_hidden'}`
@@ -16,6 +15,14 @@ function Card(props) {
     props.onCardClick(card)
   }
 
+  const handleLikeClick = () => {
+    props.onCardLike(card);
+  }
+
+  const handleDeleteClick = () => {
+    props.onCardDelete(card);
+  }
+
   return(
     <>
       <div style={{ backgroundImage: `url(${card.link})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize:"cover" }}
@@ -23,11 +30,11 @@ function Card(props) {
            className="elements__image"
            onClick={handleCardClick}
       />
-      <button type="button" className={basketButtonClassName} onClick={props.onBasketClick}></button>
+      <button type="button" className={basketButtonClassName} onClick={handleDeleteClick}></button>
       <div className="elements__group">
         <h2 className="elements__title">{card.name}</h2>
         <div className="elements__group-like">
-          <button type="button" className={cardLikeButtonClassName} aria-label="Нравится"></button>
+          <button type="button" className={cardLikeButtonClassName} onClick={handleLikeClick} aria-label="Нравится"></button>
           <p className="elements__like-count">{card.likes.length}</p>
         </div>
       </div>

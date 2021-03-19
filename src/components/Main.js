@@ -6,8 +6,24 @@ function Main(props) {
   const [cards, setCards] = React.useState([])
   const currentUser = React.useContext(CurrentUserContext)
 
-  React.useEffect(() =>{
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.putLike(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+  }
 
+  function handleCardDelete(card) {
+    api.removeCard(card._id)
+      .then((res) => {
+        const newCards = cards.filter(newCard => newCard._id !== card._id);
+        setCards(newCards);
+      })
+      .catch(err => console.log(err))
+  }
+
+  React.useEffect(() =>{
     api.getInitialCards()
       .then((res) => {
         setCards(res);
@@ -44,6 +60,8 @@ function Main(props) {
             <li className="elements__item" key={item._id}>
               <Card
                 card={item}
+                onCardLike = {handleCardLike}
+                onCardDelete = {handleCardDelete}
                 onCardClick={props.onCardClick}
                 onBasketClick={props.onBasketClick}
               />

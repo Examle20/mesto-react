@@ -76,6 +76,22 @@ function App() {
     setIsPopupWithImageOpen(false);
   }
 
+  const handleUpdateUser = ({name, about}) => {
+    api.editUserInfo(name, about)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+  }
+
+  const handleUpdateAvatar = (avatar) => {
+    api.changeAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -97,6 +113,7 @@ function App() {
           onClose={closeAllPopups}
           onEscClose={handleEscClose}
           onOverlayClose={handlePressingMouse}
+          onUpdateUser={handleUpdateUser}
           buttonTitle="Сохранить"
         />
         <AddPlacePopup
@@ -113,6 +130,7 @@ function App() {
           onEscClose={handleEscClose}
           onOverlayClose={handlePressingMouse}
           buttonTitle="Сохранить"
+          onUpdateAvatar={handleUpdateAvatar}
         />
         <CardDeletePopup
           isOpen={isCardDeletePopupOpen}
