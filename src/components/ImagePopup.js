@@ -1,15 +1,12 @@
 import React from "react";
 
 function ImagePopup(props) {
-  const {link, name} =props.card
+  const {link} =props.card
   const classNameOpen = props.isOpen ? 'popup_visible' : '';
-    React.useEffect(() => {
-    if (props.card) document.addEventListener('keydown', props.onEscClose);
 
-    return () => {
-      document.removeEventListener('keydown', props.onEscClose);
-    }
-  },[props.isOpen])
+  React.useEffect(() => {
+    props.onEscClose(props.isOpen);
+  },[props.isOpen, props.card, props.onEscClose])
 
   return(
     <div className={`popup popup_image ${classNameOpen}`} onClick={props.onOverlayClose}>

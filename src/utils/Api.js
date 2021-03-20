@@ -64,7 +64,7 @@ export class Api {
       })
   }
 
-  addCard({name, link}) {
+  addCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: {

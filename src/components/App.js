@@ -21,6 +21,11 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({link:'', name: ''});
   const [isPopupWithImageOpen, setIsPopupWithImageOpen] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState('');
+  const [selectedDeletionCard, setSelectedDeletionCard] = React.useState('')
+  const [cards, setCards] = React.useState([])
+  const [buttonSave, setButtonSave] = React.useState('Сохранить');
+  const [buttonCreate, setButtonCreate] = React.useState('Создать');
+
 
   React.useEffect(() =>{
     api.getUser()
@@ -29,8 +34,49 @@ function App() {
       },)
       .catch(err => console.log(err))
 
+    api.getInitialCards()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch(err => console.log(err))
   },[])
 
+  const handleButtonSave = (buttonState) => {
+    setButtonSave(buttonState);
+  }
+
+  const handleButtonCreate = (buttonState) => {
+    setButtonCreate(buttonState);
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(err => console.log(err));
+  }
+
+  function handleCardDelete(card) {
+    api.removeCard(card._id)
+      .then((res) => {
+        const newCards = cards.filter(newCard => newCard._id !== card._id);
+        setCards(newCards);
+        closeAllPopups();
+      })
+      .catch(err => console.log(err))
+  }
+
+  const handleAddPlace = (name, link) => {
+    handleButtonCreate('Создание...')
+    api.addCard(name, link)
+      .then(res => {
+        setCards([res, ...cards]);
+        closeAllPopups();
+        handleButtonCreate('Создать')
+      })
+  }
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -45,20 +91,26 @@ function App() {
   }
 
   const handleCardClick = (card) => {
-    console.log(card)
     setSelectedCard(card);
     setIsPopupWithImageOpen(true)
+  }
+
+  const handleDeleteSelectedCard = (card) => {
+    setSelectedDeletionCard(card);
   }
 
   const handleBasketClick = () => {
     setIsCardDeletePopupOpen(!isCardDeletePopupOpen);
   }
 
-  const handleEscClose = (evt) => {
+  const escClose = (evt) => {
       if (evt.key === 'Escape') {
         closeAllPopups();
       }
+  }
 
+  const handleEscClose = (isOpen) => {
+    if(isOpen) document.addEventListener('keydown', escClose);
   }
 
   const handlePressingMouse = (evt) => {
@@ -69,6 +121,7 @@ function App() {
 
   //Параметры передаются для плавного закрытия попапа с изображением
   const closeAllPopups = () => {
+    document.removeEventListener("keydown", escClose)
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -77,18 +130,26 @@ function App() {
   }
 
   const handleUpdateUser = ({name, about}) => {
+    handleButtonSave('Сохранение...')
     api.editUserInfo(name, about)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
+        handleButtonSave('Сохранить')
       })
   }
 
   const handleUpdateAvatar = (avatar) => {
+    handleButtonSave('Сохранение...')
     api.changeAvatar(avatar)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
+        handleButtonSave('Сохранить')
+      })
+      .catch(err => {
+        console.log(err)
+        handleButtonSave('Сохранить')
       })
   }
 
@@ -103,6 +164,9 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             onBasketClick={handleBasketClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleDeleteSelectedCard}
           />
           <Footer />
         </div>
@@ -114,14 +178,15 @@ function App() {
           onEscClose={handleEscClose}
           onOverlayClose={handlePressingMouse}
           onUpdateUser={handleUpdateUser}
-          buttonTitle="Сохранить"
+          buttonTitle={buttonSave}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onEscClose={handleEscClose}
           onOverlayClose={handlePressingMouse}
-          buttonTitle="Создать"
+          onAddPlace={handleAddPlace}
+          buttonTitle={buttonCreate}
         />
         <EditAvatarPopup
           name='avatar'
@@ -129,7 +194,7 @@ function App() {
           onClose={closeAllPopups}
           onEscClose={handleEscClose}
           onOverlayClose={handlePressingMouse}
-          buttonTitle="Сохранить"
+          buttonTitle={buttonSave}
           onUpdateAvatar={handleUpdateAvatar}
         />
         <CardDeletePopup
@@ -137,6 +202,8 @@ function App() {
           onClose={closeAllPopups}
           onEscClose={handleEscClose}
           onOverlayClose={handlePressingMouse}
+          onCardDelete={handleCardDelete}
+          card={selectedDeletionCard}
           buttonTitle="Да"
         />
         <ImagePopup
