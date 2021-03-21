@@ -15,7 +15,6 @@ function AddPlacePopup(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title, link)
     props.onAddPlace(title, link)
   }
 

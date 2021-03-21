@@ -23,8 +23,10 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState('');
   const [selectedDeletionCard, setSelectedDeletionCard] = React.useState('')
   const [cards, setCards] = React.useState([])
+
   const [buttonSave, setButtonSave] = React.useState('Сохранить');
   const [buttonCreate, setButtonCreate] = React.useState('Создать');
+  const [buttonDelete, setButtonDelete] = React.useState('Да')
 
   const [isButtonSaveUser, setIsButtonSaveUser] = React.useState(false);
   const [isButtonSavePlace, setIsButtonSavePlace] = React.useState(false);
@@ -71,11 +73,13 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    handleButtonState(setButtonDelete, 'Удаление...')
     api.removeCard(card._id)
       .then((res) => {
         const newCards = cards.filter(newCard => newCard._id !== card._id);
         setCards(newCards);
         closeAllPopups();
+        handleButtonState(setButtonDelete, 'Да')
       })
       .catch(err => console.log(err))
   }
@@ -221,7 +225,7 @@ function App() {
           onOverlayClose={handlePressingMouse}
           onCardDelete={handleCardDelete}
           card={selectedDeletionCard}
-          buttonTitle="Да"
+          buttonTitle={buttonDelete}
         />
         <ImagePopup
           card={selectedCard}

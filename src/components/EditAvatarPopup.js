@@ -11,7 +11,9 @@ const [link, setLink] = React.useState('');
     e.preventDefault();
     props.onUpdateAvatar(link)
   }
-
+  React.useEffect(() => {
+    setLink('');
+  },[props.isOpen])
   return(
     <PopupWithForm
       name='avatar'
@@ -30,7 +32,7 @@ const [link, setLink] = React.useState('');
             <Input
               name='avatar'
               type='url'
-              placeholder='Имя'
+              placeholder='Ссылка на картинку'
               value={link || ''}
               isOpen={props.isOpen}
               onChange={handleChangeLink}
