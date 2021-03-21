@@ -26,6 +26,11 @@ function App() {
   const [buttonSave, setButtonSave] = React.useState('Сохранить');
   const [buttonCreate, setButtonCreate] = React.useState('Создать');
 
+  const [isButtonActive, setIsButtonActive] = React.useState(false)
+
+  const handleButtonActive = (boolean) => {
+    setIsButtonActive(boolean);
+  }
 
   React.useEffect(() =>{
     api.getUser()
@@ -41,12 +46,8 @@ function App() {
       .catch(err => console.log(err))
   },[])
 
-  const handleButtonSave = (buttonState) => {
-    setButtonSave(buttonState);
-  }
-
-  const handleButtonCreate = (buttonState) => {
-    setButtonCreate(buttonState);
+  const handleButtonState = (setButton, buttonTitle) => {
+    setButton(buttonTitle);
   }
 
   function handleCardLike(card) {
@@ -69,12 +70,12 @@ function App() {
   }
 
   const handleAddPlace = (name, link) => {
-    handleButtonCreate('Создание...')
+    handleButtonState(setButtonCreate,'Создание...')
     api.addCard(name, link)
       .then(res => {
         setCards([res, ...cards]);
         closeAllPopups();
-        handleButtonCreate('Создать')
+        handleButtonState(setButtonCreate,'Создать')
       })
   }
 
@@ -130,26 +131,25 @@ function App() {
   }
 
   const handleUpdateUser = ({name, about}) => {
-    handleButtonSave('Сохранение...')
+    handleButtonState(setButtonSave,'Сохранение...')
     api.editUserInfo(name, about)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
-        handleButtonSave('Сохранить')
+        handleButtonState(setButtonSave,'Сохранить')
       })
   }
 
   const handleUpdateAvatar = (avatar) => {
-    handleButtonSave('Сохранение...')
+    handleButtonState(setButtonSave,'Сохранение...')
     api.changeAvatar(avatar)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
-        handleButtonSave('Сохранить')
+        handleButtonState(setButtonSave,'Сохранить')
       })
       .catch(err => {
         console.log(err)
-        handleButtonSave('Сохранить')
       })
   }
 
@@ -178,41 +178,43 @@ function App() {
           onEscClose={handleEscClose}
           onOverlayClose={handlePressingMouse}
           onUpdateUser={handleUpdateUser}
+          onButtonActive={handleButtonActive}
+          isButtonActive={isButtonActive}
           buttonTitle={buttonSave}
         />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onEscClose={handleEscClose}
-          onOverlayClose={handlePressingMouse}
-          onAddPlace={handleAddPlace}
-          buttonTitle={buttonCreate}
-        />
-        <EditAvatarPopup
-          name='avatar'
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onEscClose={handleEscClose}
-          onOverlayClose={handlePressingMouse}
-          buttonTitle={buttonSave}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
-        <CardDeletePopup
-          isOpen={isCardDeletePopupOpen}
-          onClose={closeAllPopups}
-          onEscClose={handleEscClose}
-          onOverlayClose={handlePressingMouse}
-          onCardDelete={handleCardDelete}
-          card={selectedDeletionCard}
-          buttonTitle="Да"
-        />
-        <ImagePopup
-          card={selectedCard}
-          onClose={closeAllPopups}
-          onEscClose={handleEscClose}
-          isOpen={isPopupWithImageOpen}
-          onOverlayClose={handlePressingMouse}
-        />
+        {/*<AddPlacePopup*/}
+        {/*  isOpen={isAddPlacePopupOpen}*/}
+        {/*  onClose={closeAllPopups}*/}
+        {/*  onEscClose={handleEscClose}*/}
+        {/*  onOverlayClose={handlePressingMouse}*/}
+        {/*  onAddPlace={handleAddPlace}*/}
+        {/*  buttonTitle={buttonCreate}*/}
+        {/*/>*/}
+        {/*<EditAvatarPopup*/}
+        {/*  name='avatar'*/}
+        {/*  isOpen={isEditAvatarPopupOpen}*/}
+        {/*  onClose={closeAllPopups}*/}
+        {/*  onEscClose={handleEscClose}*/}
+        {/*  onOverlayClose={handlePressingMouse}*/}
+        {/*  buttonTitle={buttonSave}*/}
+        {/*  onUpdateAvatar={handleUpdateAvatar}*/}
+        {/*/>*/}
+        {/*<CardDeletePopup*/}
+        {/*  isOpen={isCardDeletePopupOpen}*/}
+        {/*  onClose={closeAllPopups}*/}
+        {/*  onEscClose={handleEscClose}*/}
+        {/*  onOverlayClose={handlePressingMouse}*/}
+        {/*  onCardDelete={handleCardDelete}*/}
+        {/*  card={selectedDeletionCard}*/}
+        {/*  buttonTitle="Да"*/}
+        {/*/>*/}
+        {/*<ImagePopup*/}
+        {/*  card={selectedCard}*/}
+        {/*  onClose={closeAllPopups}*/}
+        {/*  onEscClose={handleEscClose}*/}
+        {/*  isOpen={isPopupWithImageOpen}*/}
+        {/*  onOverlayClose={handlePressingMouse}*/}
+        {/*/>*/}
       </div>
     </CurrentUserContext.Provider>
   );
