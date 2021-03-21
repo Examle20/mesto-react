@@ -7,6 +7,10 @@ const Input = React.memo((props) => {
     props.onChange(e);
     setErrorMessage(e.target.validationMessage);
   }
+
+  React.useEffect(() => {
+    if(!props.isOpen) setErrorMessage('');
+  },[props.isOpen])
   return (
     <>
       <input

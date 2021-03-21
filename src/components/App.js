@@ -30,6 +30,7 @@ function App() {
   const [isButtonSavePlace, setIsButtonSavePlace] = React.useState(false);
   const [isButtonSaveAvatar, setIsButtonSaveAvatar] = React.useState(false);
 
+
   const handleStateButtonEdit = (boolean) => {
     setIsButtonSaveUser(boolean);
   }
@@ -180,7 +181,6 @@ function App() {
           />
           <Footer />
         </div>
-
         <EditProfilePopup
           name='edit'
           isOpen={isEditProfilePopupOpen}

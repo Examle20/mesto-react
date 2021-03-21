@@ -32,6 +32,7 @@ const [link, setLink] = React.useState('');
               type='url'
               placeholder='Имя'
               value={link || ''}
+              isOpen={props.isOpen}
               onChange={handleChangeLink}
               isButtonActive={props.isButtonActive}
               onButtonActive={props.onButtonActive}

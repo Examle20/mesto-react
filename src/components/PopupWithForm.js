@@ -2,14 +2,11 @@ import React from "react";
 function PopupWithForm(props) {
   const classNameOpen = props.isOpen ? 'popup_visible' : '';
   const buttonInactive = props.isButtonActive ? '' : 'popup__button-save_inactive'
-  console.log('Proverka')
   const elementsRef = React.useRef()
 
   React.useEffect(() => {
     const inputsList = Array.from(elementsRef.current.elements);
-    console.log(props.isButtonActive)
     const isInputsValid = inputsList.every((elem) => elem.validity.valid)
-
     if(isInputsValid) {
       props.onButtonActive(true)
     }else{

@@ -45,15 +45,11 @@ function AddPlacePopup(props) {
               minLength='2'
               maxLength='40'
               value={title || ''}
+              isOpen={props.isOpen}
               onChange={handleChangeTitle}
               isButtonActive={props.isButtonActive}
               onButtonActive={props.onButtonActive}
               />
-            {/*<input id="place-input" type="text"*/}
-            {/*       value={title || ''} onChange={handleChangeTitle}*/}
-            {/*       className="popup__form-input popup__form-input_place popup__form-input_field_place" name="name"*/}
-            {/*       placeholder="Название" minLength="2" maxLength="40" required autoComplete="off" />*/}
-            {/*  <span className="place-input-error popup__form-error"></span>*/}
           </label>
           <label className="popup__form-field">
             <Input
@@ -62,14 +58,10 @@ function AddPlacePopup(props) {
               placeholder='Ссылка на картинку'
               value={link || ''}
               onChange={handleChangeLink}
+              isOpen={props.isOpen}
               isButtonActive={props.isButtonActive}
               onButtonActive={props.onButtonActive}
             />
-            {/*<input id="url-input" type="url"*/}
-            {/*       value={link || ''} onChange={handleChangeLink}*/}
-            {/*       className="popup__form-input popup__form-input_place popup__form-input_field_url" name="link"*/}
-            {/*       placeholder="Ссылка на картинку" required autoComplete="off" />*/}
-            {/*  <span className="url-input-error popup__form-error"></span>*/}
           </label>
         </>
       )}

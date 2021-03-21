@@ -19,7 +19,7 @@ function EditProfilePopup(props) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, props.isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -53,6 +53,7 @@ function EditProfilePopup(props) {
             maxLength='40'
             value={name || ''}
             onChange={handleChangeName}
+            isOpen={props.isOpen}
             isButtonActive={props.isButtonActive}
             onButtonActive={props.onButtonActive}
             />
@@ -66,6 +67,7 @@ function EditProfilePopup(props) {
             maxLength='200'
             value={description || ''}
             onChange={handleChangeDescription}
+            isOpen={props.isOpen}
             isButtonActive={props.isButtonActive}
             onButtonActive={props.onButtonActive}
           />
