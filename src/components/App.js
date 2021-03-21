@@ -9,7 +9,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import CardDeletePopup from "./CardDeletePopup";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import api from "../utils/Api";
+import api from "../utils/api";
 
 function App() {
 
