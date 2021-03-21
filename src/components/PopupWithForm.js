@@ -4,10 +4,12 @@ function PopupWithForm(props) {
   const buttonInactive = props.isButtonActive ? '' : 'popup__button-save_inactive'
   console.log('Proverka')
   const elementsRef = React.useRef()
+
   React.useEffect(() => {
     const inputsList = Array.from(elementsRef.current.elements);
+    console.log(props.isButtonActive)
     const isInputsValid = inputsList.every((elem) => elem.validity.valid)
-    console.log(isInputsValid)
+
     if(isInputsValid) {
       props.onButtonActive(true)
     }else{
@@ -26,7 +28,7 @@ function PopupWithForm(props) {
         <button type="button" className="popup__button-close popup__button-close_edit" aria-label="Закрыть" onClick={props.onClose}></button>
         <form ref={elementsRef} action="pages/index.js" className="popup__form" name={`form_${props.name}`} noValidate onSubmit={props.onSubmit}>
           {props.children}
-          <button type="submit" className={`popup__button-save popup__button-save_user ${buttonInactive}`} aria-label="Сохранить">{props.buttonTitle} </button>
+          <button type="submit" className={`popup__button-save popup__button-save_${props.name} ${buttonInactive}`} aria-label="Сохранить">{props.buttonTitle} </button>
         </form>
       </div>
     </div>

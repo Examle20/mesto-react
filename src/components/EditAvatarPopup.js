@@ -1,12 +1,15 @@
 import PopupWithForm from "./PopupWithForm";
 import React from "react";
-
+import Input from "./Input";
 function EditAvatarPopup(props) {
-  const avatarRef = React.useRef();
 
+const [link, setLink] = React.useState('');
+  function handleChangeLink(e) {
+    setLink(e.target.value)
+  }
   function handleSubmit(e) {
     e.preventDefault();
-    props.onUpdateAvatar(avatarRef.current.value)
+    props.onUpdateAvatar(link)
   }
 
   return(
@@ -17,14 +20,22 @@ function EditAvatarPopup(props) {
       onEscClose={props.onEscClose}
       onOverlayClose={props.onOverlayClose}
       buttonTitle={props.buttonTitle}
+      isButtonActive={props.isButtonActive}
+      onButtonActive={props.onButtonActive}
       onSubmit={handleSubmit}
       children={(
         <>
           <h2 className="popup__title popup__title_place">Обновить аватар</h2>
           <label className="popup__form-field">
-            <input id="avatar-input" type="url" className="popup__form-input popup__form-input_avatar-url" name="avatar"
-                   placeholder="Ссылка на картинку" required autoComplete="off" ref={avatarRef} />
-              <span className="avatar-input-error popup__form-error"></span>
+            <Input
+              name='avatar'
+              type='url'
+              placeholder='Имя'
+              value={link || ''}
+              onChange={handleChangeLink}
+              isButtonActive={props.isButtonActive}
+              onButtonActive={props.onButtonActive}
+            />
           </label>
         </>
       )}

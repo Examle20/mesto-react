@@ -26,10 +26,20 @@ function App() {
   const [buttonSave, setButtonSave] = React.useState('Сохранить');
   const [buttonCreate, setButtonCreate] = React.useState('Создать');
 
-  const [isButtonActive, setIsButtonActive] = React.useState(false)
+  const [isButtonSaveUser, setIsButtonSaveUser] = React.useState(false);
+  const [isButtonSavePlace, setIsButtonSavePlace] = React.useState(false);
+  const [isButtonSaveAvatar, setIsButtonSaveAvatar] = React.useState(false);
 
-  const handleButtonActive = (boolean) => {
-    setIsButtonActive(boolean);
+  const handleStateButtonEdit = (boolean) => {
+    setIsButtonSaveUser(boolean);
+  }
+
+  const handleStateButtonPlace = (boolean) => {
+    setIsButtonSavePlace(boolean);
+  }
+
+  const handleStateButtonAvatar = (boolean) => {
+    setIsButtonSaveAvatar(boolean);
   }
 
   React.useEffect(() =>{
@@ -178,43 +188,48 @@ function App() {
           onEscClose={handleEscClose}
           onOverlayClose={handlePressingMouse}
           onUpdateUser={handleUpdateUser}
-          onButtonActive={handleButtonActive}
-          isButtonActive={isButtonActive}
+          onButtonActive={handleStateButtonEdit}
+          isButtonActive={isButtonSaveUser}
           buttonTitle={buttonSave}
         />
-        {/*<AddPlacePopup*/}
-        {/*  isOpen={isAddPlacePopupOpen}*/}
-        {/*  onClose={closeAllPopups}*/}
-        {/*  onEscClose={handleEscClose}*/}
-        {/*  onOverlayClose={handlePressingMouse}*/}
-        {/*  onAddPlace={handleAddPlace}*/}
-        {/*  buttonTitle={buttonCreate}*/}
-        {/*/>*/}
-        {/*<EditAvatarPopup*/}
-        {/*  name='avatar'*/}
-        {/*  isOpen={isEditAvatarPopupOpen}*/}
-        {/*  onClose={closeAllPopups}*/}
-        {/*  onEscClose={handleEscClose}*/}
-        {/*  onOverlayClose={handlePressingMouse}*/}
-        {/*  buttonTitle={buttonSave}*/}
-        {/*  onUpdateAvatar={handleUpdateAvatar}*/}
-        {/*/>*/}
-        {/*<CardDeletePopup*/}
-        {/*  isOpen={isCardDeletePopupOpen}*/}
-        {/*  onClose={closeAllPopups}*/}
-        {/*  onEscClose={handleEscClose}*/}
-        {/*  onOverlayClose={handlePressingMouse}*/}
-        {/*  onCardDelete={handleCardDelete}*/}
-        {/*  card={selectedDeletionCard}*/}
-        {/*  buttonTitle="Да"*/}
-        {/*/>*/}
-        {/*<ImagePopup*/}
-        {/*  card={selectedCard}*/}
-        {/*  onClose={closeAllPopups}*/}
-        {/*  onEscClose={handleEscClose}*/}
-        {/*  isOpen={isPopupWithImageOpen}*/}
-        {/*  onOverlayClose={handlePressingMouse}*/}
-        {/*/>*/}
+        <AddPlacePopup
+          name='add'
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          onOverlayClose={handlePressingMouse}
+          onAddPlace={handleAddPlace}
+          buttonTitle={buttonCreate}
+          onButtonActive={handleStateButtonPlace}
+          isButtonActive={isButtonSavePlace}
+        />
+        <EditAvatarPopup
+          name='avatar'
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          onOverlayClose={handlePressingMouse}
+          buttonTitle={buttonSave}
+          onUpdateAvatar={handleUpdateAvatar}
+          onButtonActive={handleStateButtonAvatar}
+          isButtonActive={isButtonSaveAvatar}
+        />
+        <CardDeletePopup
+          isOpen={isCardDeletePopupOpen}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          onOverlayClose={handlePressingMouse}
+          onCardDelete={handleCardDelete}
+          card={selectedDeletionCard}
+          buttonTitle="Да"
+        />
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups}
+          onEscClose={handleEscClose}
+          isOpen={isPopupWithImageOpen}
+          onOverlayClose={handlePressingMouse}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
