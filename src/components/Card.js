@@ -26,7 +26,7 @@ function Card(props) {
   }
 
   return(
-    <>
+    <li className="elements__item" >
       <div style={{ backgroundImage: `url(${card.link})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize:"cover" }}
            alt="Что-то с ссылкой на изображение"
            className="elements__image"
@@ -40,7 +40,7 @@ function Card(props) {
           <p className="elements__like-count">{card.likes.length}</p>
         </div>
       </div>
-    </>
+    </li>
   )
 };
 

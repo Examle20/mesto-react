@@ -6,9 +6,7 @@ function PopupWithForm(props) {
   const elementsRef = React.useRef()
 
   React.useEffect(() => {
-    const inputsList = Array.from(elementsRef.current.elements);
-    const isInputsValid = inputsList.every((elem) => elem.validity.valid)
-    if(isInputsValid) {
+    if(elementsRef.current && elementsRef.current.checkValidity()) {
       props.onButtonActive(true)
       setButtonDisabled(false);
     }else{

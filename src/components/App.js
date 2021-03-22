@@ -20,7 +20,7 @@ function App() {
 
   const [selectedCard, setSelectedCard] = React.useState({link:'', name: ''});
   const [isPopupWithImageOpen, setIsPopupWithImageOpen] = React.useState(false)
-  const [currentUser, setCurrentUser] = React.useState('');
+  const [currentUser, setCurrentUser] = React.useState({});
   const [selectedDeletionCard, setSelectedDeletionCard] = React.useState('')
   const [cards, setCards] = React.useState([])
 
@@ -55,6 +55,7 @@ function App() {
     api.getInitialCards()
       .then((res) => {
         setCards(res);
+        console.log(res)
       })
       .catch(err => console.log(err))
   },[])
@@ -92,6 +93,7 @@ function App() {
         closeAllPopups();
         handleButtonState(setButtonCreate,'Создать')
       })
+      .catch(err => console.log(err))
   }
 
   const handleEditAvatarClick = () => {

@@ -9,7 +9,7 @@ function CardDeletePopup(props) {
   }
   React.useEffect(() => {
     props.onEscClose(props.isOpen);
-  },[props.isOpen, props.card, props.onEscClose])
+  },[props.isOpen])
   return(
     <div className={`popup popup_delete ${classNameOpen}`} onClick={props.onOverlayClose}>
       <div className="popup__container">

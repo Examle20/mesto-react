@@ -25,7 +25,6 @@ const Input = React.memo((props) => {
         autoComplete="off"
         value={props.value}
         onChange={handleChange}
-        ref={props.ref}
       />
       <span className={`${props.name}-input-error popup__form-error popup__form-error_active`}>
         {errorMessage}
