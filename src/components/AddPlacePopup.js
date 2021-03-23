@@ -44,6 +44,7 @@ function AddPlacePopup(props) {
               minLength='2'
               maxLength='30'
               value={title || ''}
+              xName={title}
               isOpen={props.isOpen}
               onChange={handleChangeTitle}
               isButtonActive={props.isButtonActive}
@@ -58,6 +59,7 @@ function AddPlacePopup(props) {
               value={link || ''}
               onChange={handleChangeLink}
               isOpen={props.isOpen}
+              xName={link}
               isButtonActive={props.isButtonActive}
               onButtonActive={props.onButtonActive}
             />

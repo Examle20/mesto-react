@@ -4,8 +4,14 @@ const Input = React.memo((props) => {
   const [errorMessage, setErrorMessage] = React.useState('');
 
   const handleChange = (e) => {
-    props.onChange(e);
-    setErrorMessage(e.target.validationMessage);
+    console.log(e.target.value.trim().length)
+    console.log(e.target.value.trim().length < 2 )
+    props.onChange(e)
+    if(e.target.value.trim().length < 2 && e.target.validationMessage === ''){
+      setErrorMessage('Нужно как минимум 2 символа');
+    }else{
+      setErrorMessage(e.target.validationMessage);
+    }
   }
 
   React.useEffect(() => {
@@ -25,6 +31,8 @@ const Input = React.memo((props) => {
         autoComplete="off"
         value={props.value}
         onChange={handleChange}
+        onPaste={handleChange}
+        contentEditable={true}
       />
       <span className={`${props.name}-input-error popup__form-error popup__form-error_active`}>
         {errorMessage}
